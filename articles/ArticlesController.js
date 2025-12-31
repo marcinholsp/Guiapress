@@ -4,8 +4,12 @@ const Category = require('../categories/Category');
 const slugify = require('slugify');
 const router = express.Router();
 
-router.get('/articles', (req, res) => {
-    res.send('Articles page');
+router.get('/admin/articles', (req, res) => {
+    Article.findAll({
+        include: [{model: Category}]
+    }).then(articles => {
+        res.render('admin/articles/index', {articles: articles});
+    });
 });
 
 router.get('/admin/articles/new', (req, res) => {
