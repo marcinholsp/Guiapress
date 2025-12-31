@@ -1,5 +1,7 @@
 const express = require('express');
 const Article = require('./Article');
+const Category = require('../categories/Category');
+const slugify = require('slugify');
 const router = express.Router();
 
 router.get('/articles', (req, res) => {
@@ -7,7 +9,9 @@ router.get('/articles', (req, res) => {
 });
 
 router.get('/admin/articles/new', (req, res) => {
-    res.render('admin/articles/new');
+    Category.findAll().then(categories => {
+        res.render('admin/articles/new', {categories: categories});
+    });
 });
 
 router.post('/articles/save', (req, res) => {
@@ -16,7 +20,9 @@ router.post('/articles/save', (req, res) => {
     if (title != undefined && body != undefined) {
         Article.create({
             title: title,
-            body: body
+            slug: slugify(title),
+            body: body,
+            categoryId: req.body.category
         }).then(() => {
             res.redirect('/admin/articles');
         });
