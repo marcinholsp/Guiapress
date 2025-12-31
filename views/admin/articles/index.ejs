@@ -24,8 +24,8 @@
                         <td><%= article.slug %></td>
                         <td><%= article.Category ? article.Category.title : 'Sem categoria' %></td>
                         <td>
-                            <a class="btn btn-primary btn-sm" href="/admin/articles/edit/<%= article.id %>">Editar</a>
-                            <form action="/articles/delete/<%= article.id %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event, this);">
+                            <form action="/articles/delete/" method="POST" style="display:inline;" onsubmit="confirmDelete(event, this);">
+                                <input type="hidden" name="id" value="<%= article.id %>">
                                 <button class="btn btn-danger btn-sm" type="submit">Deletar</button>
                             </form>
                         </td>
@@ -35,12 +35,12 @@
         </table>
     </div>
 </body>
-<%- include('../../partials/footer.ejs') %>
 <script>
     function confirmDelete(event, form) {
         event.preventDefault();
-        if (confirm('Tem certeza que deseja deletar esta categoria?')) {
+        if (confirm('Tem certeza que deseja deletar este artigo?')) {
             form.submit();
         }
     }
 </script>
+<%- include('../../partials/footer.ejs') %>
