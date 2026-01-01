@@ -2,24 +2,14 @@
 <%- include ('./partials/homenavbar.ejs') %>
 <body>
     <div class="container">
-        <div class="jumbotron">
-  <h1>Bem vindo!</h1>
-  <p class="lead">Este é um simples blog do guia do programador.</p>
-  <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="#" role="button">Saiba Mais</a>
-</div>
-
-        <hr>
-        <%= articles.forEach(article => { %>
             <div class="card">
                 <div class="card-header">
                     <h2><%= article.title %></h2>
                 </div>
                 <div class="card-body">
-                    <a href="/<%=article.slug %>" class="btn btn-success">Ler artigo</a>
+                     <%= article.body %>
                 </div>
             </div>
-        <% })%>
     </div>
 </body>
 <%- include('./partials/footer.ejs') %>
