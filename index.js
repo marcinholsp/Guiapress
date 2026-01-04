@@ -36,7 +36,12 @@ app.get('/', (req, res) => {
   res.render('index.ejs', {articles: Article.findAll({
     order: [['id', 'DESC']],
     limit: 4
-  })});
+  }).then(articles => {
+      Category.findAll().then(categories => {
+        res.render('index.ejs', {articles: articles, categories: categories});
+      });
+    })
+  });
 });
 
 app.get('/:slug', (req, res) => {
@@ -45,7 +50,9 @@ app.get('/:slug', (req, res) => {
     where: {slug: slug}
   }).then(article => {
     if(article != undefined){
-        res.render('article.ejs', {article: article});
+        Category.findAll().then(categories => {
+            res.render('article.ejs', {article: article, categories: categories});
+        });
     } else {
         res.redirect('/');
     }

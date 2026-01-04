@@ -3,6 +3,11 @@
     <a href="/" class="navbar-brand">Guiapress</a>
 
     <ul class="navbar-nav flex-row">
+      <% categories.forEach(function(category) { %>
+        <li class="nav-item mx-2">
+          <a class="nav-link" href="/category/<%= category.slug %>"><%= category.title %></a>
+        </li>
+      <% }); %>
       <li class="nav-item">
         <a class="nav-link" href="/">Home</a>
       </li>
